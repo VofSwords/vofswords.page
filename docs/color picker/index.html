@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Color picker</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        #red, #green, #blue {
+          float: left;
+          clear: left;
+          width: 300px;
+          margin: 15px;
+        }
+        #red .ui-slider-range { background: red; }
+        #red .ui-slider-handle { border-color: red; }
+        #green .ui-slider-range { background: green; }
+        #green .ui-slider-handle { border-color: green; }
+        #blue .ui-slider-range { background: blue; }
+        #blue .ui-slider-handle { border-color: blue; }
+        #result {
+            width: 220px;
+            height: 180px;
+            margin-top: 18px;
+            margin-left: 50px;
+            color: #222222;
+            background-color: white;
+            font-weight: bold;
+        }
+        .container-vertical-middle {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .container-table {
+          display: table
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <fieldset>
+            <legend>Select</legend>
+            <input type="radio" name="mode" id="color_radio" value="0">
+            <label for="color_radio">
+                Color
+            </label>
+            <input type="radio" name="mode" id="background_radio" value="1" checked>
+            <label for="background_radio">
+                Background
+            </label>
+        </fieldset>
+        <div class="container-table">
+          <div class="container-vertical-middle">
+            <div id="red"></div>
+            <div id="green"></div>
+            <div id="blue"></div>
+          </div>
+          <textarea id="result" class="ui-widget-content">
+          </textarea>
+      </div>
+    </div>
+    <input type="hidden" name="background-red" id="background-red" value="255">
+    <input type="hidden" name="background-green"  id="background-green" value="255">
+    <input type="hidden" name="background-blue"  id="background-blue" value="255">
+    <input type="hidden" name="color-red" id="color-red" value="34">
+    <input type="hidden" name="color-green"  id="color-green" value="34">
+    <input type="hidden" name="color-blue"  id="color-blue" value="34">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    $(() => {
+      const Placeholder = "The quick brown fox jumps over the lazy dog";
+      $("#result")[0].value = Placeholder;
+      function hexFromRGB(r, g, b) {
+        return Array.from(arguments).reduce((acc, val) => {
+          const str = (+val).toString(16);
+          if (str.length === 1) {
+            return acc += "0" + str;
+          } else {
+            return acc += str;
+          }
+        }, "");
+      };
+
+      function getCurrentMode() {
+        return $('input[name="mode"]:checked').val();
+      };
+      function refreshResult() {
+        const red = $( "#red" ).slider( "value" ),
+          green = $( "#green" ).slider( "value" ),
+          blue = $( "#blue" ).slider( "value" ),
+          hex = hexFromRGB( red, green, blue );
+        const property = getCurrentMode() === "1" ? "background-color" : "color";
+        const mode = getCurrentMode() === "1" ? "background" : "color";
+        $( "#result" ).css( property, "#" + hex );
+        $(`#${mode}-red`).val(red);
+        $(`#${mode}-green`).val(green);
+        $(`#${mode}-blue`).val(blue);
+      };
+      function onChangeRadio() {
+        const mode = getCurrentMode() === "1" ? "background" : "color";
+        const red = $(`#${mode}-red`).val() ,
+          green = $(`#${mode}-green`).val() ,
+          blue = $(`#${mode}-blue`).val() ;
+        
+
+        $( "#red" ).slider( "value", red );
+        $( "#green" ).slider( "value", green );
+        $( "#blue" ).slider( "value", blue);
+      };
+  
+      $( "#red, #green, #blue" ).slider({
+        orientation: "horizontal",
+        range: "min",
+        max: 255,
+        value: 127,
+        slide: refreshResult,
+        change: refreshResult
+      });
+
+      $( "fieldset > input" ).checkboxradio({
+        icon: false
+      }).change(onChangeRadio);
+
+      const property = getCurrentMode() === "1" ? "color" : "background-color";
+      const mode = getCurrentMode() === "1" ? "color" : "background";
+      const red = $(`#${mode}-red`).val() ,
+          green = $(`#${mode}-green`).val() ,
+          blue = $(`#${mode}-blue`).val() ;
+      const hex = hexFromRGB( red, green, blue );
+
+      onChangeRadio();
+      $( "#result" ).css( property, "#" + hex );
+    });
+    </script>
+</body>
+</html>
