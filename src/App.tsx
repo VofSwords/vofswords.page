@@ -3,19 +3,19 @@
 //  * Copyright (C) 2021-present VofSwords    *
 //  *******************************************
 
-import logo from './brending/blue-smooth-logo.svg'
-import './App.css'
+import c from "./App.module.css";
+import logo from './brending/blue-smooth-logo.svg';
+import { FC } from "react";
 
-function App() {
 
-  return (
-    <div className="app">
-      <header className="app-header">
-        <img src={logo} className="app-logo" alt="logo" />
-        <h1>VofSwords</h1>
+const App: FC = () => {
+
+  return <div className={c.App}>
+      <header className={c.appHeader}>
+        <img src={logo} className={c.appLogo} alt="logo" />
+          <h1>VofSwords</h1>
       </header>
-    </div>
-  )
-}
+  </div>
+};
 
-export default App
+export default App;
