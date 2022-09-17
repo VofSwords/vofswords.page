@@ -18,6 +18,6 @@ jobs:
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: vofswords-page
+          project: vofswords
           import-map: import_map.json
           entrypoint: main.ts
