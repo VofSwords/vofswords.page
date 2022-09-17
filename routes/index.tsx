@@ -1,8 +1,9 @@
-/** @jsx h */
-import { h } from "preact";
-
-export default function Main () {
+const Main = () => {
   return (
-    <div>Hello, VofSwords!</div>
+    <div>
+      <div>Hello, VofSwords!</div>
+    </div>
   );
 }
+
+export default Main;
