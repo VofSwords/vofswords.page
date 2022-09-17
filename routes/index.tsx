@@ -1,3 +1,6 @@
+/** @jsx h */
+import { h } from "preact";
+
 const Main = () => {
   return (
     <div>
