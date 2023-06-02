@@ -1,7 +1,3 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
-
-import { h, Fragment } from "preact";
 import { Head } from "$fresh/runtime.ts";
 import Layout from "../components/layouts/default/index.tsx";
 

@@ -1,6 +1,4 @@
-/** @jsx h */
-
-import { h, ComponentChildren } from "preact";
+import { ComponentChildren } from "preact";
 
 const layout = ({ children }: { children: ComponentChildren }) => {
   const child = Array.isArray(children) ? children[0] : children;
