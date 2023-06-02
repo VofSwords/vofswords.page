@@ -24,7 +24,7 @@ const App = ({ Component }: AppProps) => {
           { baseStyle }
         </style>
       </Head>
-      <body>
+      <body style="--tVH: 1vh;">
         <script type="text/javascript">
           { tVHScript }
         </script>
